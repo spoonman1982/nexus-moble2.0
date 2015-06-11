@@ -1,0 +1,61 @@
+<div data-role="page" id="add_devices" data-theme="a">
+	<div data-role="header" data-position="fixed">
+		<a href="#defaultPanel" data-icon="bars" data-iconpos="notext"></a>
+				<h1>Energy Use Now</h1>
+		<a href="index.html" data-icon="home" data-iconpos="notext"></a>
+
+	</div>
+
+			<ul data-inset="true" data-role="listview" data-theme="a" style="margin-top: 20px; margin-left: 2%; margin-right: 2%;">
+				<li data-role="list-divider"> Power Viewer </li>
+				<li style='background: #f3f3f3;'>			
+					<div style="width:200px; margin: 0 auto">
+						<canvas id="power_now_guage" width="200" height="100" style="text-align: center;"></canvas>
+					</div>
+					<h3 id="power_now_reading" style="text-align: center; padding-bottom:10px"> 1.2 kW </h3>
+				</li>
+			</ul>
+	
+			<ul data-inset="true" id="cost_viewer" class="list_viewer" data-role="listview" data-theme="a">
+				<li data-role="list-divider"> Cost Viewer </li>
+				<li class="list_container">
+				<div class="max-width">
+					<h3>Current Spend</h3>
+					<div id="spending_now_container">
+						<img alt="euro icon" src="themes/images/euro_icon.png">
+						<span> 3.17/hr </span>
+					</div>
+					<div id="spend_so_far_today">
+						<h3>Total Spend Today:</h3>
+						<h4>€ 12.00 </h4>				
+					</div>
+				</div>	
+				</li>
+			</ul>
+
+	<script>	
+		var opts = {
+			lines: 0, // The number of lines to draw
+			angle: 0, // The length of each line
+			lineWidth: 0.26, // The line thickness
+		  	colorStart: '#6FADCF',   // Colors
+		  	colorStop: '#8FC0DA',    // just experiment with them
+		  	strokeColor: '#E0E0E0',   // to see which ones work best for you
+		  	generateGradient: true,
+		  	pointer: {
+		    	length: 0.58, // The radius of the inner circle
+				strokeWidth: 0.06, // The rotation offset
+				color: '#000000' // Fill color
+		  	},
+		  	limitMax: 'false',   // If true, the pointer will not go past the end of the gauge
+	
+		};
+		
+		var target = document.getElementById('power_now_guage'); // your canvas element
+		var gauge = new Gauge(target).setOptions(opts); 
+		
+		gauge.maxValue = 3000; // set max gauge value
+		gauge.animationSpeed = 32; // set animation speed (32 is default value)
+		gauge.set(2999); // set actual value
+	</script>
+</div>

@@ -1,0 +1,197 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0" />
+<title>Smooth Accordion Dropdown Menu Demo</title>
+<link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background: #2d2c41;
+  font-family: 'Open Sans', Arial, Helvetica, Sans-serif, Verdana, Tahoma;
+}
+
+ul { list-style-type: none; }
+
+a {
+  color: #b63b4d;
+  text-decoration: none;
+}
+
+/** =======================
+ * Contenedor Principal
+ ===========================*/
+
+
+h1 {
+  color: #FFF;
+  font-size: 24px;
+  font-weight: 400;
+  text-align: center;
+  margin-top: 80px;
+}
+
+h1 a {
+  color: #c12c42;
+  font-size: 16px;
+}
+
+.accordion {
+  width: 100%;
+  max-width: 12em;
+  margin: 30px auto 0px;
+  background: #FFF;
+}
+
+.accordion .link {
+  cursor: pointer;
+  display: block;
+  padding: 15px 15px 15px 42px;
+  color: #4D4D4D;
+  font-weight: bold;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid #CCC;
+  position: relative;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.accordion li:last-child .link { border-bottom: 0; }
+
+.accordion li i {
+  position: absolute;
+  top: 16px;
+  left: 12px;
+  font-size: 18px;
+  color: #595959;
+  -webkit-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+.accordion li i.fa-chevron-down {
+  right: 12px;
+  left: auto;
+  font-size: 16px;
+}
+
+/*.accordion li.open .link { color: #b63b4d; }
+
+.accordion li.open i { color: #b63b4d; }*/
+
+.accordion li.open i.fa-chevron-down {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+/**
+ * Submenu
+ -----------------------------*/
+
+
+.submenu {
+  display: none;
+  background: #444359;
+  font-size: 14px;
+  background-color: #d6d6d6 !important;
+  
+}
+
+.submenu li { border-bottom: 1px solid #4b4a5e; position:relative; }
+
+.accordion li i {
+  position: absolute;
+  top: 14px;
+  left: 12px;
+  font-size: 18px;
+  color: #828282 !important;
+}
+
+
+
+.submenu a {
+  display: block;
+  text-decoration: none;
+  font-weight: bold;
+  color: #828282 !important;
+  padding: 12px;
+  padding-left: 42px;
+
+}
+
+/*.submenu a:hover {
+  background: #b63b4d;
+  color: #FFF;
+}*/
+</style>
+</head>
+
+<body>
+<h1>Smooth Accordion Dropdown Menu Demo</h1>
+
+<!-- Contenedor -->
+<ul id="accordion" class="accordion">
+  <li><a href='#' class="link"><i class="fa fa-sun-o"></i>Dashboard</a></li>
+  <li>
+    <div class="link"><i class="fa fa-sun-o"></i>Energy Use<i class="ui-btn-icon-carat-d"></i></div>
+    <ul class="submenu">
+      <li><a href="#"><i class="fa fa-sun-o"></i>Energy Use Now</a></li>
+      <li><a href="#"><i class="fa fa-sun-o"></i>History</a></li>
+      <li><a href="#"><i class="fa fa-sun-o"></i>Home Report</a></li>
+    </ul>
+  </li>
+  <li>
+    <div class="link"><i class="fa fa-sun-o"></i>Devices<i class="fa fa-chevron-down"></i></div>
+    <ul class="submenu">
+      <li><a href="#">Smart Plugs</a></li>
+      <li><a href="#">Add Devices</a></li>
+    </ul>
+  </li>
+    <li><a href='#' class="link">Profile</a></li>
+    <li><a href='#' class="link">Log Out</a></li>
+</ul>
+<script src="themes/js/jquery-1.11.1.js"></script> 
+<script>
+$(function() {
+	var Accordion = function(el, multiple) {
+		this.el = el || {};
+		this.multiple = multiple || false;
+
+		// Variables privadas
+		var links = this.el.find('.link');
+		// Evento
+		links.on('click', {el: this.el, multiple: this.multiple}, this.dropdown)
+	}
+
+	Accordion.prototype.dropdown = function(e) {
+		var $el = e.data.el;
+			$this = $(this),
+			$next = $this.next();
+
+		$next.slideToggle();
+		$this.parent().toggleClass('open');
+
+		if (!e.data.multiple) {
+			$el.find('.submenu').not($next).slideUp().parent().removeClass('open');
+		};
+	}	
+
+	var accordion = new Accordion($('#accordion'), false);
+});
+</script>
+
+</body>
+</html>
