@@ -27,13 +27,13 @@
 					</div>
 					<div id="spend_so_far_today">
 						<h3>Total Spend Today:</h3>
-						<h4>€ 12.00 </h4>				
+						<h4>€ ##.## </h4>				
 					</div>
 				</div>	
 				</li>
 			</ul>
 
-	<script>	
+	<script>
 		var opts = {
 			lines: 0, // The number of lines to draw
 			angle: 0, // The length of each line
@@ -54,8 +54,27 @@
 		var target = document.getElementById('power_now_guage'); // your canvas element
 		var gauge = new Gauge(target).setOptions(opts); 
 		
-		gauge.maxValue = 3000; // set max gauge value
+		gauge.maxValue = 30; // set max gauge value
 		gauge.animationSpeed = 32; // set animation speed (32 is default value)
-		gauge.set(2999); // set actual value
+
+	
+	
+	
+	var costReading = 0, powerReading = 0;
+	var factoredCostReading = costReading*(60*(60/6));
+	var factoredPowerReading = powerReading*(60*(60/6));
+	
+	
+	
+	$.get('http://' + ip_address + ':8080/energy-hub-fastpoll/1/', function(data){
+		costReading = data.lastCostReading, powerReading = data.lastKWHReading;
+		alert("Data1: " + costReading + "\nData2: " + powerReading);
+		$('#power_now_reading').text(factoredPowerReading + "kW");
+		$('#spending_now_container span').text(factoredCostReading + "/hr");
+		gauge.set(factoredPowerReading); // set actual value
+    });
+	
+	
+
 	</script>
 </div>
