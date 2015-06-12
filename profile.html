@@ -23,11 +23,11 @@
 				var $form = $(this);
 
 				var ip_address = $form.find("input[name='ip_address']").val();
-				
+				alert(ip_address);
 			    $.get('http://' + ip_address + ':8080/test', function(data, status){
         			alert("Data: " + data + "\nStatus: " + status);
         			if(data == "nexus"){
-        				LocalStorage.setItem("ip_address", ip_address);
+        				localStorage.setItem("ip_address", ip_address);
         			}
     			});
 
